@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "ocr-analysis-tool"
+version = "1.1.1"
+description = "Tool to analyze OCR documents"
+authors = ["Bas van der Laan <basvanderlaan96@hotmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "ocr_analysis_tool" }
+]
+
+[tool.poetry.dependencies]
+python = "~3.11"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+autoflake = "^2.3.1"
+isort = "^5.13.2"
+poethepoet = "^0.31.1"
+pytest = "^8.3.4"
+matplotlib = "^3.10.0"
+pillow = "^11.1.0"
+jupyter = "^1.1.1"
+pymupdf = "^1.25.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+format = [
+    { cmd = "autoflake --in-place --expand-star-imports -r ocr_analysis_tool/ tests/"},
+    { cmd = "black -l 93 ocr_analysis_tool/ tests/" },
+    { cmd = "isort ocr_analysis_tool/ tests/" },
+]
+test = [
+    { cmd = "pytest tests/"}
+]
